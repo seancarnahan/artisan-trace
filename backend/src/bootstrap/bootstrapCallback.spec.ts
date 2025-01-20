@@ -7,7 +7,7 @@ import { AppModule } from '../AppModule';
 import { enableGlobalValidation } from './enableGlobalValidation';
 import { setUpOpenApi } from './setUpOpenApi';
 import { bootstrapCallback } from './bootstrapCallback';
-import { Config } from '@app/config/Config';
+import { Config } from '../config/Config';
 
 jest.mock('./enableGlobalValidation');
 jest.mock('./setUpOpenApi');
