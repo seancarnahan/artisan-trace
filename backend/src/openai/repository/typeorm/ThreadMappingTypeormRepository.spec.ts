@@ -1,4 +1,4 @@
-import { Repository, IsNull } from 'typeorm';
+import { Repository, IsNull, EntityNotFoundError } from 'typeorm';
 
 import { ThreadMappingTypeormRepository } from './ThreadMappingTypeormRepository';
 import { ThreadMappingEntity } from '../entities/ThreadMappingEntity';
@@ -18,7 +18,6 @@ describe(ThreadMappingTypeormRepository.name, () => {
 
   const service = new ThreadMappingTypeormRepository(
     mockRepo,
-    StructuredLoggerServiceFactory.noOpStructuredLoggerService(),
   );
 
   beforeEach(() => {
@@ -81,7 +80,7 @@ describe(ThreadMappingTypeormRepository.name, () => {
       mockRepo.findOneBy.mockResolvedValue(null);
 
       await expect(service.findByAssistantThreadId(assistantThreadId)).rejects.toThrow(
-        new EntityNotFound(ThreadMappingEntity.name, assistantThreadId, 'assistantThreadId'),
+        new EntityNotFoundError(ThreadMappingEntity.name, assistantThreadId),
       );
 
       expect(mockRepo.findOneBy).toHaveBeenCalledWith({

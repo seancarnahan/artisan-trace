@@ -14,8 +14,6 @@ describe(AssistantService.name, () => {
     getOrThrow: jest.fn(),
   } as unknown as jest.Mocked<ConfigService>;
 
-  const mockLoggerService = StructuredLoggerServiceFactory.noOpStructuredLoggerService();
-
   const mockClient = {
     beta: {
       assistants: {
@@ -38,7 +36,7 @@ describe(AssistantService.name, () => {
       return undefined;
     });
 
-    service = new AssistantService(mockLoggerService, mockConfigService);
+    service = new AssistantService(mockConfigService);
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     (service as any).client = mockClient;
     // eslint-disable-next-line @typescript-eslint/no-explicit-any

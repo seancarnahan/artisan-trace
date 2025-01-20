@@ -1,5 +1,5 @@
 import { Assistant } from 'openai/resources/beta/assistants';
-import { Inject, Injectable } from '@nestjs/common';
+import { Injectable } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 
 import { OpenAIClient } from '../domain/model/OpenAIClient';
@@ -8,7 +8,6 @@ import { CustomAssistant } from '../domain/model/CustomAssistant';
 @Injectable()
 export class AssistantService extends OpenAIClient {
   constructor(
-    @Inject(STRUCTURED_LOGGER_SERVICE) private readonly loggerService: StructuredLoggerService<{}>,
     protected readonly configService: ConfigService,
   ) {
     super(configService);
@@ -27,10 +26,7 @@ export class AssistantService extends OpenAIClient {
         return existingAssistant;
       }
     } catch (error) {
-      this.loggerService.error({
-        message: 'Error fetching existing assistants',
-        error,
-      });
+      // TODO - log error
 
       throw error;
     }

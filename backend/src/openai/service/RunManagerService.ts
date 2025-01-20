@@ -1,5 +1,5 @@
 
-import { Injectable, Inject } from '@nestjs/common';
+import { Injectable } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import { Run } from 'openai/resources/beta/threads/runs/runs';
 
@@ -10,7 +10,6 @@ import { FunctionToolCall } from '../domain/model/FunctionToolCall';
 @Injectable()
 export class RunManagerService extends OpenAIClient {
   constructor(
-    @Inject(STRUCTURED_LOGGER_SERVICE) private readonly loggerService: StructuredLoggerService<{}>,
     protected readonly configService: ConfigService,
     private readonly toolCallbackService: ToolCallbackService,
   ) {
@@ -70,7 +69,7 @@ export class RunManagerService extends OpenAIClient {
 
     const message = errorMessages[status] || `Unrecognized run state: ${status}`;
 
-    this.loggerService.error({ message, status });
+    // TODO - log error
 
     throw new Error(message);
   }

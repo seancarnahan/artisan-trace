@@ -1,11 +1,10 @@
-import { Inject, Injectable } from '@nestjs/common';
-import { IsNull, Repository } from 'typeorm';
+import { Injectable } from '@nestjs/common';
+import { EntityNotFoundError, Repository } from 'typeorm';
 import { InjectRepository } from '@nestjs/typeorm';
 
 import { ThreadMapping } from '@app/openai/domain/model/ThreadMapping';
 import { ThreadMappingEntity } from '../entities/ThreadMappingEntity';
 import { CreateThreadMappingDto } from '@app/openai/domain/dto/CreateThreadMappingDto';
-import { EntityNotFound } from '@app/database/exceptions/EntityNotFound';
 import { ThreadMappingPort } from '@app/openai/domain/ports/ThreadMappingPort';
 
 @Injectable()
@@ -13,21 +12,16 @@ export class ThreadMappingTypeormRepository implements ThreadMappingPort {
   constructor(
     @InjectRepository(ThreadMappingEntity)
     private readonly repo: Repository<ThreadMappingEntity>,
-    @Inject(STRUCTURED_LOGGER_SERVICE)
-    private readonly loggerService: StructuredLoggerService<{}>,
   ) {}
 
   async findBySlackThreadId(slackThreadId: string): Promise<ThreadMapping | null> {
     const entity = await this.repo.findOneBy({
       slackThreadId,
-      deletedAt: IsNull(),
+      // deletedAt: IsNull(), TODO - fix this
     });
 
     if (entity === null) {
-      this.loggerService.log({
-        message: 'Slack Thread Mapping Not Found',
-        slackThreadId,
-      });
+      // TODO - log error
 
       return null;
     }
@@ -38,15 +32,12 @@ export class ThreadMappingTypeormRepository implements ThreadMappingPort {
   async findByAssistantThreadId(assistantThreadId: string): Promise<ThreadMapping | null> {
     const entity = await this.repo.findOneBy({
       assistantThreadId,
-      deletedAt: IsNull(),
+      // deletedAt: IsNull(), TODO - fix this
     });
 
     if (entity === null) {
-      this.loggerService.error({
-        message: 'Assistant Thread Mapping Not Found',
-        assistantThreadId,
-      });
-      throw new EntityNotFound(ThreadMappingEntity.name, assistantThreadId, 'assistantThreadId');
+      // TODO - log error
+      throw new EntityNotFoundError(ThreadMappingEntity.name, assistantThreadId);
     }
 
     return ThreadMappingEntity.toDomainModel(entity);
@@ -60,11 +51,7 @@ export class ThreadMappingTypeormRepository implements ThreadMappingPort {
 
       return ThreadMappingEntity.toDomainModel(threadMappingEntity);
     } catch (error) {
-      this.loggerService.error({
-        message: 'Error on create',
-        error,
-        createDto,
-      });
+      // TODO - log error
 
       throw error;
     }

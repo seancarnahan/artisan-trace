@@ -1,4 +1,4 @@
-import { Injectable, Inject } from '@nestjs/common';
+import { Injectable } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import { Run } from 'openai/resources/beta/threads/runs/runs';
 
@@ -8,7 +8,6 @@ import { FunctionToolCall } from '../domain/model/FunctionToolCall';
 @Injectable()
 export class ToolCallbackService extends OpenAIClient {
   constructor(
-    @Inject(STRUCTURED_LOGGER_SERVICE) private readonly loggerService: StructuredLoggerService<{}>,
     protected readonly configService: ConfigService,
   ) {
     super(configService);
@@ -29,7 +28,6 @@ export class ToolCallbackService extends OpenAIClient {
         ? await toolCallback(toolCallInput as FunctionToolCall)
         : { message: 'No callback provided' };
 
-      this.loggerService.log({ message: 'Submitting tool outputs', toolResponse });
       await this.client.beta.threads.runs.submitToolOutputs(threadId, runId, {
         tool_outputs: [
           {
@@ -39,7 +37,6 @@ export class ToolCallbackService extends OpenAIClient {
         ],
       });
     } catch (error) {
-      this.loggerService.error({ message: 'Error in tool callback', error });
       throw error;
     }
   }

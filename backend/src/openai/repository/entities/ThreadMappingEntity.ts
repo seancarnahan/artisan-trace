@@ -1,13 +1,12 @@
 import { Column, Entity, Index } from 'typeorm';
 import { Expose, instanceToPlain, plainToInstance } from 'class-transformer';
 
-import { BaseEntity } from '@app/database/entities/BaseEntity';
 import { ThreadMapping } from '@app/openai/domain/model/ThreadMapping';
 import { CreateThreadMappingDto } from '@app/openai/domain/dto/CreateThreadMappingDto';
 import { ThreadMappingType } from '@app/openai/domain/model/ThreadMappingType';
 
 @Entity('thread_mappings')
-export class ThreadMappingEntity extends BaseEntity {
+export class ThreadMappingEntity {
   @Expose()
   @Column({ type: 'varchar', nullable: false })
   @Index('IDX_slack_thread_id', { unique: true })
@@ -25,6 +24,8 @@ export class ThreadMappingEntity extends BaseEntity {
     nullable: false,
   })
   type!: ThreadMappingType;
+
+  // TODO - add base entity
 
   public static toDomainModel(entity: ThreadMappingEntity): ThreadMapping {
     return plainToInstance(ThreadMapping, instanceToPlain(entity), { excludeExtraneousValues: true });

@@ -14,8 +14,6 @@ describe(AudioService.name, () => {
     getOrThrow: jest.fn(),
   } as unknown as jest.Mocked<ConfigService>;
 
-  const mockLoggerService = StructuredLoggerServiceFactory.noOpStructuredLoggerService();
-
   const mockClient = {
     audio: {
       transcriptions: {
@@ -37,7 +35,7 @@ describe(AudioService.name, () => {
       return undefined;
     });
 
-    service = new AudioService(mockLoggerService, mockConfigService);
+    service = new AudioService(mockConfigService);
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     (service as any).client = mockClient;
   });

@@ -12,8 +12,6 @@ describe(FileService.name, () => {
     getOrThrow: jest.fn(),
   } as unknown as jest.Mocked<ConfigService>;
 
-  const mockLoggerService = StructuredLoggerServiceFactory.noOpStructuredLoggerService();
-
   const mockClient = {
     files: {
       list: jest.fn(),
@@ -39,7 +37,7 @@ describe(FileService.name, () => {
       return undefined;
     });
 
-    service = new FileService(mockLoggerService, mockConfigService);
+    service = new FileService(mockConfigService);
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     (service as any).client = mockClient;
   });

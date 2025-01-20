@@ -1,5 +1,5 @@
 import fs from 'fs';
-import { Inject, Injectable } from '@nestjs/common';
+import { Injectable } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 
 import { OpenAIClient } from '../domain/model/OpenAIClient';
@@ -7,7 +7,6 @@ import { OpenAIClient } from '../domain/model/OpenAIClient';
 @Injectable()
 export class AudioService extends OpenAIClient {
   constructor(
-    @Inject(STRUCTURED_LOGGER_SERVICE) private readonly loggerService: StructuredLoggerService<{}>,
     protected readonly configService: ConfigService,
   ) {
     super(configService);
@@ -24,10 +23,7 @@ export class AudioService extends OpenAIClient {
 
       return transcription.text;
     } catch (error) {
-      this.loggerService.error({
-        message: 'Error transcribing speech',
-        error,
-      });
+      // TODO - log error
 
       throw error;
     }

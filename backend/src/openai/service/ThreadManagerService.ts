@@ -1,4 +1,4 @@
-import { Injectable, Inject } from '@nestjs/common';
+import { Injectable } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import { MessageCreateParams } from 'openai/resources/beta/threads/messages';
 
@@ -7,7 +7,6 @@ import { OpenAIClient } from '../domain/model/OpenAIClient';
 @Injectable()
 export class ThreadManagerService extends OpenAIClient {
   constructor(
-    @Inject(STRUCTURED_LOGGER_SERVICE) private readonly loggerService: StructuredLoggerService<{}>,
     protected readonly configService: ConfigService,
   ) {
     super(configService);
@@ -20,7 +19,7 @@ export class ThreadManagerService extends OpenAIClient {
 
         return existingThread.id;
       } catch (error) {
-        this.loggerService.error({ message: 'Error retrieving thread, creating a new one', error });
+        // TODO - log error
       }
     }
 

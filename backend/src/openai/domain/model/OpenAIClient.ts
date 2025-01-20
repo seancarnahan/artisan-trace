@@ -1,7 +1,6 @@
 import OpenAI from 'openai';
 import { ConfigService } from '@nestjs/config';
-
-import { Config } from '@app/core/config/Config';
+import { Config } from '@app/config/Config';
 
 export class OpenAIClient {
   protected client: OpenAI;

@@ -1,5 +1,5 @@
 import fs from 'fs';
-import { Inject, Injectable } from '@nestjs/common';
+import { Injectable } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 
 import { OpenAIClient } from '../domain/model/OpenAIClient';
@@ -7,7 +7,6 @@ import { OpenAIClient } from '../domain/model/OpenAIClient';
 @Injectable()
 export class FileService extends OpenAIClient {
   constructor(
-    @Inject(STRUCTURED_LOGGER_SERVICE) private readonly loggerService: StructuredLoggerService<{}>,
     protected readonly configService: ConfigService,
   ) {
     super(configService);
@@ -15,10 +14,7 @@ export class FileService extends OpenAIClient {
 
   async uploadOrGetFile(path: string): Promise<string> {
     if (!fs.existsSync(path)) {
-      this.loggerService.error({
-        message: 'File not found at local path',
-        path,
-      });
+      // TODO - log error
       throw Error('File not found at local path');
     }
 
@@ -36,9 +32,7 @@ export class FileService extends OpenAIClient {
     });
 
     if (createdFile.id === undefined) {
-      this.loggerService.error({
-        message: 'Error creating file',
-      });
+      // TODO - log error
       throw Error('Error creating file');
     }
 

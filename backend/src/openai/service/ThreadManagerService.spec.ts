@@ -15,8 +15,6 @@ describe(ThreadManagerService.name, () => {
     getOrThrow: jest.fn(),
   } as unknown as jest.Mocked<ConfigService>;
 
-  const mockLoggerService = StructuredLoggerServiceFactory.noOpStructuredLoggerService();
-
   const mockClient = {
     beta: {
       threads: {
@@ -42,7 +40,7 @@ describe(ThreadManagerService.name, () => {
       return undefined;
     });
 
-    service = new ThreadManagerService(mockLoggerService, mockConfigService);
+    service = new ThreadManagerService(mockConfigService);
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     (service as any).client = mockClient;
   });

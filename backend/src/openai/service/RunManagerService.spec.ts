@@ -39,8 +39,6 @@ describe(RunManagerService.name, () => {
     getOrThrow: jest.fn(),
   } as unknown as jest.Mocked<ConfigService>;
 
-  const mockLoggerService = StructuredLoggerServiceFactory.noOpStructuredLoggerService();
-
   const mockToolCallbackService = {
     handleRequiredAction: jest.fn(),
   } as unknown as jest.Mocked<ToolCallbackService>;
@@ -72,7 +70,7 @@ describe(RunManagerService.name, () => {
       return undefined;
     });
 
-    service = new TestableRunManagerService(mockLoggerService, mockConfigService, mockToolCallbackService);
+    service = new TestableRunManagerService(mockConfigService, mockToolCallbackService);
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     (service as any).client = mockClient;
   });

@@ -13,7 +13,6 @@ describe(ToolCallbackService.name, () => {
     getOrThrow: jest.fn(),
   } as unknown as jest.Mocked<ConfigService>;
 
-  const mockLoggerService = StructuredLoggerServiceFactory.noOpStructuredLoggerService();
 
   const mockClient = {
     beta: {
@@ -38,7 +37,7 @@ describe(ToolCallbackService.name, () => {
       return undefined;
     });
 
-    service = new ToolCallbackService(mockLoggerService, mockConfigService);
+    service = new ToolCallbackService(mockConfigService);
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     (service as any).client = mockClient;
   });
