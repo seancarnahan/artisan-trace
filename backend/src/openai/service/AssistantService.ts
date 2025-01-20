@@ -1,6 +1,5 @@
 import { Assistant } from 'openai/resources/beta/assistants';
 import { Inject, Injectable } from '@nestjs/common';
-import { STRUCTURED_LOGGER_SERVICE, StructuredLoggerService } from '@endpoint/nestjs-core-module';
 import { ConfigService } from '@nestjs/config';
 
 import { OpenAIClient } from '../domain/model/OpenAIClient';

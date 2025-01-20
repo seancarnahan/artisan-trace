@@ -1,10 +1,8 @@
 import { Repository, IsNull } from 'typeorm';
-import { StructuredLoggerServiceFactory } from '@endpoint/nestjs-core-module';
 
 import { ThreadMappingTypeormRepository } from './ThreadMappingTypeormRepository';
 import { ThreadMappingEntity } from '../entities/ThreadMappingEntity';
 import { CreateThreadMappingDto } from '@app/openai/domain/dto/CreateThreadMappingDto';
-import { EntityNotFound } from '@app/database/exceptions/EntityNotFound';
 import { ThreadMappingType } from '@app/openai/domain/model/ThreadMappingType';
 
 const slackThreadId = 'slack-thread-id';

@@ -1,4 +1,3 @@
-import { STRUCTURED_LOGGER_SERVICE, StructuredLoggerService } from '@endpoint/nestjs-core-module';
 import { Injectable, Inject } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import { MessageCreateParams } from 'openai/resources/beta/threads/messages';

@@ -1,4 +1,4 @@
-import { StructuredLoggerServiceFactory } from '@endpoint/nestjs-core-module';
+
 import { ConfigService } from '@nestjs/config';
 import { Assistant } from 'openai/resources/beta/assistants';
 import OpenAI from 'openai';

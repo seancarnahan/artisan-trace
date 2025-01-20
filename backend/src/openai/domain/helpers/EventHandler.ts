@@ -1,7 +1,6 @@
 /* istanbul ignore file */
 // TODO - STREAMING HANDLER (Somewhat functional, but need to have a good use case for this).
 
-// import { StructuredLoggerService } from '@endpoint/nestjs-core-module';
 // import EventEmitter from 'events';
 // import OpenAI from 'openai';
 

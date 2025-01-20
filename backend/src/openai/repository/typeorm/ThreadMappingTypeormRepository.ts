@@ -1,7 +1,6 @@
 import { Inject, Injectable } from '@nestjs/common';
 import { IsNull, Repository } from 'typeorm';
 import { InjectRepository } from '@nestjs/typeorm';
-import { STRUCTURED_LOGGER_SERVICE, StructuredLoggerService } from '@endpoint/nestjs-core-module';
 
 import { ThreadMapping } from '@app/openai/domain/model/ThreadMapping';
 import { ThreadMappingEntity } from '../entities/ThreadMappingEntity';
