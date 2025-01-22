@@ -1,0 +1,8 @@
+services:
+  web:
+    build: nginx
+    container_name: nginx 
+    ports:
+      - "4000:80"
+    volumes:
+      - ./public:/usr/share/nginx/html
